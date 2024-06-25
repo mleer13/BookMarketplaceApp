@@ -1,0 +1,47 @@
+<div class="container">
+  <div class="row">
+    <p id="notice"><%= notice %></p>
+
+    <h1>Listings</h1>
+
+    <table class="u-full-width">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Author</th>
+          <th>Description</th>
+          <th>Condition</th>
+          <th>Price</th>
+          <th>Sold</th>
+          <th>Account</th>
+          <th>Category</th>
+          <th colspan="3"></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @listings.each do |listing| %>
+          <tr>
+            <td><%= listing.title %></td>
+            <td><%= listing.author %></td>
+            <td><%= listing.description %></td>
+            <td><%= format_condition(listing.condition) %></td>
+            <td><%= number_to_currency(listing.price) %></td>
+            <td><%= listing.sold %></td>
+            <td><%= listing.account.username %></td>
+            <td><%= listing.category.name %></td>
+            <td><%= link_to 'Show', listing %></td>
+            <% if current_account && current_account.id == listing.account_id %>
+              <td><%= link_to 'Edit', edit_listing_path(listing) %></td>
+              <td><%= link_to 'Destroy', listing, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+    <br>
+
+    <%= link_to 'New Listing', new_listing_path %>
+  </div>
+</div>
